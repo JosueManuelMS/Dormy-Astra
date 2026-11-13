@@ -1,3 +1,6 @@
+---
+import site from '../data/site.json';
+---
 <footer class="site-footer">
   <div class="footer-main">
     <section class="newsletter"><a href="/" class="footer-logo"><img src="https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/logo_footer.webp" alt="DormyTop" /></a><h2>Suscríbete a nuestro boletín</h2><form><input type="email" placeholder="Email" aria-label="Correo electrónico" /><button>Suscribirme</button></form><label><input type="checkbox" /> <span>He leído y aceptado la <a href="#">Política de Privacidad</a> y los <a href="#">Términos y Condiciones</a></span></label></section>
@@ -8,6 +11,14 @@
   <div class="payment-methods"><img src="https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/visa.webp" alt="Visa" /><img src="https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/mastercard.webp" alt="Mastercard" /><img src="https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/bcp.webp" alt="BCP" /><img src="https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/bbva.webp" alt="BBVA" /><img src="https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/yape.webp" alt="Yape" /></div>
   <div class="footer-bottom"><span>© 2026 DormyTop · Todos los derechos reservados</span><button class="to-top" aria-label="Volver arriba">↑</button></div>
 </footer>
+<script is:inline define:vars={{ footerLogo: site.brand.footerLogo, payments: site.footer.payments }}>
+  const footerLogoImage = document.querySelector('.footer-logo img');
+  if (footerLogoImage) footerLogoImage.src = footerLogo;
+  document.querySelectorAll('.payment-methods img').forEach((image, index) => {
+    const payment = payments[index];
+    if (payment) { image.src = payment.image; image.alt = payment.alt; }
+  });
+</script>
 <script>
   document.querySelector('.to-top')?.addEventListener('click', () => scrollTo({ top:0, behavior:'smooth' }));
   const socialIcons = [
