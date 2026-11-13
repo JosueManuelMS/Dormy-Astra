@@ -1,11 +1,11 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
 backend:
   name: github
   repo: JosueManuelMS/Dormy-Astra
   branch: main
   # Añade aquí base_url y auth_endpoint cuando configures tu OAuth de GitHub.
 
-local_backend: true
-media_folder: public/uploads
+media_folder: /public/uploads
 public_folder: /uploads
 
 collections:
