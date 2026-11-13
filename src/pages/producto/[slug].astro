@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export function getStaticPaths() {
+  return ['cama-mariposa', 'cama-lineal', 'cama-black'].map((slug) => ({ params: { slug } }));
+}
+
+const fabrics = [
+  { name: 'Coral', colors: [['Arena', '#aaa69b'], ['Gris humo', '#929298'], ['Perla', '#d4d5d1'], ['Grafito', '#343434'], ['Marfil', '#c9c4b7']] },
+  { name: 'Cusco', colors: [['Lino', '#c5c0b5'], ['Taupe', '#b7af9f'], ['Pizarra', '#5b5a5e'], ['Plata', '#b3b4b4'], ['Piedra', '#918d86']] },
+  { name: 'Kalifa', colors: [['Topo', '#afa394'], ['Niebla', '#dedcd6'], ['Ceniza', '#929292'], ['Crema', '#e5ddd1'], ['Moka', '#a9814d']] },
+  { name: 'Montana', colors: [['Visón', '#b7a996'], ['Hueso', '#dbd7cf'], ['Gris', '#969696'], ['Plomo', '#aaa9a9'], ['Beige', '#ded6c5']] },
+  { name: 'Salem', colors: [['Beige', '#cbb8a7'], ['Nube', '#daddda'], ['Acero', '#888989'], ['Malva', '#b2b1b8'], ['Camel', '#cbb296']] },
+];
+
+const related = [
+  { name: 'Cama Lineal', image: '/images/cama_lineal-600x600.webp', price: 'S/ 1,100.00', category: 'Colección Bloque', href: '/producto/cama-lineal/' },
+  { name: 'Cama Cadena', image: '/images/cama_cadena2-600x600.webp', price: 'S/ 1,250.00', category: 'Colección Capitonado', href: '/producto/cama-black/' },
+  { name: 'Cabecera Abanico', image: '/images/ca_abanico-600x600.webp', price: 'S/ 200.00', category: 'Cabeceras', href: '/categoria-producto/cabeceras/' },
+];
+---
+
+<BaseLayout title="Cama Mariposa | DormyTop" description="Cama Mariposa DormyTop: personaliza medida, tela y color.">
+  <Header />
+  <main class="product-page">
+    <div class="product-shell">
+      <section class="product-gallery" aria-label="Galería de Cama Mariposa">
+        <div class="product-image-wrap">
+          <img id="product-main-image" src="/images/cama_mariposa-600x600.webp" alt="Cama Mariposa color salem beige" width="600" height="600" />
+          <button class="zoom-button" type="button" aria-label="Ampliar imagen">⌕</button>
+        </div>
+        <div class="gallery-thumbs" aria-label="Selecciona una vista">
+          <button type="button" class="thumb is-active" aria-label="Vista principal"><img src="/images/cama_mariposa-600x600.webp" alt="" width="88" height="88" /></button>
+          <button type="button" class="thumb thumb-3d" aria-label="Abrir vista 3D"><strong>360°</strong><small>VER EN 3D</small></button>
+        </div>
+      </section>
+
+      <section class="product-details" aria-labelledby="product-name">
+        <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a><span>/</span><a href="/categoria-producto/camas/">Camas</a><span>/</span><a href="/categoria-producto/camas/coleccion-kids/">Colección Kids</a><span>/</span><span>Cama Mariposa</span></nav>
+        <a class="product-category" href="/categoria-producto/camas/coleccion-kids/">Colección Kids</a>
+        <h1 id="product-name">Cama Mariposa</h1>
+        <p class="product-price">S/ 1,400.00</p>
+
+        <div class="choice-block">
+          <div class="choice-heading"><h2>1. Elige la medida</h2><output id="selected-size">2 Plazas</output></div>
+          <div class="size-options" role="group" aria-label="Medida">
+            <button type="button">1.5 Plazas</button><button type="button" class="is-selected">2 Plazas</button><button type="button">Queen</button><button type="button">King</button>
+          </div>
+        </div>
+
+        <div class="choice-block fabric-choice">
+          <div class="choice-heading"><h2>2. Personaliza el color</h2><output id="selected-color">Salem Beige</output></div>
+          <p class="choice-help">Escoge un tono de nuestras colecciones. Te confirmaremos disponibilidad antes de fabricar.</p>
+          <div class="fabric-groups">
+            {fabrics.map((fabric) => <fieldset class="fabric-group"><legend>{fabric.name}</legend><div class="swatches">{fabric.colors.map(([name, color], index) => <button class:list={['swatch', fabric.name === 'Salem' && index === 0 && 'is-selected']} type="button" style={`--swatch:${color}`} aria-label={`${fabric.name} ${name}`} data-fabric={fabric.name} data-color={name}><span></span></button>)}</div></fieldset>)}
+            <fieldset class="fabric-group custom-fabric"><legend>Personalizado</legend><button class="custom-color" type="button" data-custom-color>Color personalizado</button></fieldset>
+          </div>
+        </div>
+
+        <aside class="catalog-card">
+          <span class="pdf-mark">PDF</span><div><strong>¿Dudas con el color o textura?</strong><p>Revisa los tonos y códigos oficiales en nuestro muestrario digital.</p></div><a href="#catalogo">Ver catálogo PDF</a>
+        </aside>
+
+        <div class="purchase-row">
+          <label class="quantity"><span class="sr-only">Cantidad</span><button type="button" data-quantity="minus" aria-label="Reducir cantidad">−</button><output id="product-quantity">1</output><button type="button" data-quantity="plus" aria-label="Aumentar cantidad">+</button></label>
+          <button class="add-cart" type="button" data-product-add>Añadir al carrito</button>
+          <a class="whatsapp-order" href="https://api.whatsapp.com/send?phone=51923894355&amp;text=Hola%20DormyTop,%20quisiera%20consultar%20por%20la%20Cama%20Mariposa" target="_blank" rel="noopener noreferrer">◉ Pedir por WhatsApp</a>
+        </div>
+
+        <div class="delivery-note"><span>●</span><div><strong>Tiempos estimados de entrega</strong><p>Stock listo (telas estándar): 24 a 48 h / A pedido (personalizado): 3 a 5 días hábiles. <a href="https://api.whatsapp.com/send?phone=51923894355" target="_blank" rel="noopener noreferrer">Consulta por WhatsApp</a></p></div></div>
+        <div class="included-note"><small>TU COMPRA</small><strong>Incluye</strong><ul><li>Cabecera bloques diseño mariposa</li><li>Tarima encajonada diseño lineal</li><li>Colchón semiortopédico</li></ul></div>
+        <p class="product-meta">SKU: N/D <span>·</span> Categoría: <a href="/categoria-producto/camas/coleccion-kids/">Colección Kids</a></p>
+      </section>
+    </div>
+
+    <section class="related-products" aria-labelledby="related-title">
+      <div><p class="eyebrow">SIGUE EXPLORANDO</p><h2 id="related-title">Productos relacionados</h2></div>
+      <a class="view-all" href="/categoria-producto/camas/">Ver todas las camas →</a>
+      <div class="related-grid">
+        {related.map((product) => <article class="related-card"><a href={product.href}><img src={product.image} alt={product.name} width="600" height="600" loading="lazy" /></a><p>{product.category}</p><h3><a href={product.href}>{product.name}</a></h3><strong>{product.price}</strong><a class="related-action" href={product.href}>Ver modelo</a></article>)}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  const sizeOutput = document.querySelector('#selected-size');
+  document.querySelectorAll('.size-options button').forEach((button) => button.addEventListener('click', () => {
+    document.querySelector('.size-options .is-selected')?.classList.remove('is-selected'); button.classList.add('is-selected'); if (sizeOutput) sizeOutput.textContent = button.textContent || '';
+  }));
+  const colorOutput = document.querySelector('#selected-color');
+  document.querySelectorAll<HTMLButtonElement>('.swatch').forEach((button) => button.addEventListener('click', () => {
+    document.querySelector('.swatch.is-selected')?.classList.remove('is-selected'); document.querySelector('[data-custom-color]')?.classList.remove('is-selected'); button.classList.add('is-selected'); if (colorOutput) colorOutput.textContent = `${button.dataset.fabric} ${button.dataset.color}`;
+  }));
+  document.querySelector<HTMLButtonElement>('[data-custom-color]')?.addEventListener('click', (event) => {
+    document.querySelector('.swatch.is-selected')?.classList.remove('is-selected'); const button = event.currentTarget; button.classList.add('is-selected'); if (colorOutput) colorOutput.textContent = 'Color personalizado';
+  });
+  let quantity = 1; const quantityOutput = document.querySelector('#product-quantity');
+  document.querySelectorAll<HTMLButtonElement>('[data-quantity]').forEach((button) => button.addEventListener('click', () => { quantity = Math.max(1, quantity + (button.dataset.quantity === 'plus' ? 1 : -1)); if (quantityOutput) quantityOutput.textContent = String(quantity); }));
+  document.querySelector('[data-product-add]')?.addEventListener('click', () => document.querySelector<HTMLAnchorElement>('.action.cart[data-cart-trigger]')?.click());
+</script>
+
+<style>
+  .product-page{max-width:1440px;margin:auto;padding:32px clamp(20px,5vw,80px) 80px}.product-shell{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(420px,.95fr);gap:clamp(42px,6vw,96px);align-items:start}.product-gallery{position:sticky;top:24px}.product-image-wrap{background:#f6f4f1;position:relative;aspect-ratio:1}.product-image-wrap>img{width:100%;height:100%;object-fit:contain;display:block}.zoom-button{position:absolute;top:20px;right:20px;width:50px;height:50px;border:0;border-radius:50%;background:#fff;color:#19304f;font-size:32px;cursor:pointer}.gallery-thumbs{display:flex;gap:14px;margin-top:16px}.thumb{width:90px;height:90px;padding:4px;border:2px solid transparent;border-radius:8px;background:#fff;cursor:pointer}.thumb.is-active{border-color:#ec1636}.thumb img{width:100%;height:100%;object-fit:cover}.thumb-3d{display:flex;flex-direction:column;justify-content:center;color:#777;border-color:#999}.thumb-3d strong{font-size:24px}.thumb-3d small{font-size:10px}.breadcrumbs{display:flex;flex-wrap:wrap;gap:7px;color:#68778d;font-size:.94rem;margin:4px 0 20px}.breadcrumbs a{color:inherit;text-decoration:none}.product-category{color:#ec1636;text-decoration:none;font-size:1.05rem}.product-details h1{font-size:clamp(1.7rem,2.5vw,2.25rem);margin:14px 0 8px;color:#142c4e}.product-price{font-size:clamp(1.85rem,2.8vw,2.35rem);font-weight:800;color:#e90024;margin:0 0 42px}.choice-block{padding:0 0 25px;margin-bottom:25px;border-bottom:1px solid #e5e9ed}.choice-heading{display:flex;align-items:baseline;justify-content:space-between;gap:14px}.choice-heading h2{font-size:1.08rem;margin:0;color:#132b4d}.choice-heading output{color:#4d5c70}.size-options,.swatches{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.size-options button{border:1px solid #d8dce2;background:#fff;border-radius:999px;padding:10px 14px;color:#5e718d;cursor:pointer}.size-options .is-selected{background:#111;color:#fff;border-color:#111;box-shadow:0 0 0 3px #111}.choice-help{font-size:.9rem;color:#637089;margin:7px 0 15px}.fabric-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 34px}.fabric-group{border:0;margin:0;padding:0}.fabric-group legend{font-weight:700;font-size:.92rem}.swatches{margin-top:9px}.swatch{width:34px;height:34px;border:1px solid rgba(0,0,0,.18);border-radius:50%;padding:3px;background:#fff;cursor:pointer}.swatch span{display:block;width:100%;height:100%;border-radius:inherit;background:var(--swatch)}.swatch.is-selected{outline:2px solid #111;outline-offset:2px}.custom-fabric{display:flex;flex-direction:column;justify-content:flex-start}.custom-color{align-self:flex-start;margin-top:9px;color:#167047;border:1px solid #b6dfc8;border-radius:999px;background:#f7fffa;padding:8px 12px;font:inherit;cursor:pointer}.custom-color.is-selected{background:#167047;border-color:#167047;color:#fff;box-shadow:0 0 0 3px #d5f1df}.catalog-card{display:grid;grid-template-columns:auto 1fr auto;gap:15px;align-items:center;border:1px dashed #cbd1d8;border-radius:14px;padding:16px;margin:27px 0}.catalog-card p{margin:3px 0 0;color:#53657e;font-size:.92rem}.pdf-mark{background:#e90024;color:#fff;font-weight:800;border-radius:8px;padding:17px 10px;font-size:.75rem}.catalog-card a{border:1px solid #111;border-radius:9px;padding:12px 14px;color:#111;text-decoration:none;font-weight:700;white-space:nowrap}.purchase-row{display:grid;grid-template-columns:auto 1fr 1fr;gap:14px;align-items:center}.quantity{height:54px;display:flex;border:1px solid #e1e5e8}.quantity button,.quantity output{width:43px;border:0;background:#fff;display:grid;place-items:center;font:inherit}.quantity button{font-size:1.4rem;cursor:pointer}.add-cart,.whatsapp-order{height:54px;border:0;border-radius:999px;color:#fff;font-size:1rem;font-weight:800;display:grid;place-items:center;text-decoration:none;cursor:pointer}.add-cart{background:#050505}.whatsapp-order{background:#25d366}.delivery-note,.included-note{border-radius:14px;padding:18px;margin-top:25px}.delivery-note{display:flex;gap:14px;background:#fff8eb;border:1px solid #f3d39a}.delivery-note>span{color:#25d366;font-size:1.6rem;line-height:1}.delivery-note strong,.included-note strong{display:block;color:#101f34}.delivery-note p{margin:7px 0 0;line-height:1.45;color:#3e4b5e}.delivery-note a{color:#111;font-weight:700}.included-note{background:#f7fcf8;border:1px solid #cce9d4}.included-note small{display:block;color:#16845a;font-size:.68rem;letter-spacing:.12em;font-weight:800}.included-note ul{display:flex;flex-wrap:wrap;gap:7px 25px;margin:9px 0 0;padding:0;list-style:none;color:#2e4a3a}.included-note li::before{content:'✓ ';color:#159359;font-weight:800}.product-meta{color:#66758a;margin:18px 0 0}.product-meta a{color:#e90024;text-decoration:none}.product-meta span{margin:0 10px}.related-products{margin-top:90px;padding-top:45px;border-top:1px solid #e8eaed;display:grid;grid-template-columns:1fr auto;gap:25px}.eyebrow{color:#e90024;font-size:.74rem;font-weight:800;letter-spacing:.15em;margin:0 0 8px}.related-products h2{font-size:clamp(1.8rem,3vw,2.5rem);color:#142c4e;margin:0}.view-all{align-self:end;color:#e90024;text-decoration:none;font-weight:700}.related-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:23px}.related-card{display:flex;flex-direction:column}.related-card> a:first-child{background:#f7f6f4}.related-card img{width:100%;aspect-ratio:1;object-fit:contain;display:block;transition:transform .25s}.related-card:hover img{transform:scale(1.03)}.related-card p{font-size:.84rem;color:#8791a3;margin:16px 0 4px}.related-card h3{font-size:1.1rem;margin:0 0 7px}.related-card h3 a{color:#142c4e;text-decoration:none}.related-card>strong{color:#e90024}.related-action{margin-top:16px;border:1px solid #162d4d;padding:11px;text-align:center;color:#142c4e;text-decoration:none;font-weight:700}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  @media(max-width:900px){.product-shell{grid-template-columns:1fr;gap:34px}.product-gallery{position:static;max-width:650px}.product-price{margin-bottom:30px}.related-products{margin-top:60px}}
+  @media(max-width:600px){.product-page{padding:18px 19px 52px}.product-image-wrap{margin:0 -1px}.zoom-button{top:13px;right:13px;width:45px;height:45px}.thumb{width:82px;height:82px}.breadcrumbs{font-size:.83rem;margin-top:4px}.product-details h1{font-size:1.55rem}.fabric-groups{grid-template-columns:1fr;gap:17px}.catalog-card{grid-template-columns:auto 1fr;padding:16px}.catalog-card a{grid-column:1/-1;text-align:center}.purchase-row{grid-template-columns:1fr;gap:12px}.quantity{width:76px;height:50px}.quantity button,.quantity output{width:33px}.add-cart,.whatsapp-order{height:58px}.delivery-note,.included-note{padding:16px}.included-note ul{display:block}.included-note li{margin-top:7px}.product-meta{font-size:.9rem}.related-products{display:block}.view-all{display:inline-block;margin-top:12px}.related-grid{display:flex;overflow:auto;gap:16px;margin:25px -19px 0;padding:0 19px 8px;scroll-snap-type:x mandatory}.related-card{flex:0 0 78%;scroll-snap-align:start}.related-card p{margin-top:12px}}
+</style>

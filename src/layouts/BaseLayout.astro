@@ -1,0 +1,19 @@
+---
+import '../styles/global.css';
+import '../styles/menu-fix.css';
+import '../styles/theme.css';
+import '../styles/footer-fix.css';
+const { title = 'DormyTop' } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#d9324a" />
+    <link rel="icon" type="image/webp" href="https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/cropped-icono.webp" />
+    <meta name="description" content="DormyTop: descanso, diseña e inspira." />
+    <title>{title}</title>
+  </head>
+  <body><slot /></body>
+</html>

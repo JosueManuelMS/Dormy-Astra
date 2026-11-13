@@ -1,0 +1,8 @@
+{
+  "products": [
+  { "slug": "cama-mariposa", "name": "Cama Mariposa", "category": "Colección Kids", "price": "S/ 1,400.00", "image": "/images/cama_mariposa-600x600.webp", "featured": true },
+  { "slug": "cama-lineal", "name": "Cama Lineal", "category": "Colección Bloque", "price": "S/ 1,100.00", "image": "/images/cama_lineal-600x600.webp", "featured": true },
+  { "slug": "cama-black", "name": "Cama Cadena 2", "category": "Colección Bloque", "price": "S/ 1,100.00", "image": "/images/cama_cadena2-600x600.webp", "featured": true },
+  { "slug": "cabecera-abanico", "name": "Cabecera Abanico", "category": "Rayadas", "price": "S/ 200.00", "image": "/images/ca_abanico-600x600.webp", "featured": true }
+  ]
+}

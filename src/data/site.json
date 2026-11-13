@@ -1,0 +1,49 @@
+{
+  "brand": {
+    "name": "DormyTop",
+    "headerLogo": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794544687/logo-header.webp",
+    "footerLogo": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/logo_footer.webp"
+  },
+  "hero": [
+    { "href": "/", "desktop": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/banner1.webp", "mobile": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/banner1_movil.webp", "alt": "Promoción DormyTop" },
+    { "href": "/", "desktop": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/banner2.webp", "mobile": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/banner2_movil.webp", "alt": "Promoción DormyTop" },
+    { "href": "/producto/cama-cuadros/", "desktop": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/banner3.webp", "mobile": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/banner3_movil.webp", "alt": "Cama Cuadros" }
+  ],
+  "launch": {
+    "title": "Descuentos exclusivos",
+    "subtitle": "solo por lanzamiento",
+    "items": [
+      { "href": "/producto/cama-black/", "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794544808/destacado1.webp", "alt": "Oferta de lanzamiento: Cama Black" },
+      { "href": "/categoria-producto/tarimas/", "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794544813/destacado2.webp", "alt": "Oferta de lanzamiento: Tarimas" },
+      { "href": "/categoria-producto/cabeceras/", "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794544815/destacado3.webp", "alt": "Oferta de lanzamiento: Cabeceras" }
+    ]
+  },
+  "about": {
+    "eyebrow": "Dormir bien empieza aquí",
+    "title": "¿Quiénes somos?",
+    "text": "Diseñamos dormitorios que se adaptan a tu forma de vivir: confort, estilo y detalles hechos a tu medida.",
+    "link": "/sobre-nosotros/",
+    "linkLabel": "Conócenos",
+    "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/acerca-de.webp",
+    "benefits": ["Camas, cabeceras, box tarimas y colchones hechos a tu medida.", "Telas antifluidas y acabados modernos que marcan la diferencia.", "Despacho a domicilio en Lima y agencias autorizadas para provincias.", "Configura color, tamaño y modelo ideal para tu habitación."]
+  },
+  "bento": [
+    { "href": "/categoria-producto/camas/coleccion-nube/", "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/bento_img.webp", "alt": "Colección Nube" },
+    { "href": "/categoria-producto/cabeceras/minimalistas/", "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/bento_img2.webp", "alt": "Cabeceras minimalistas" },
+    { "href": "/etiqueta-producto/promocion-2026/", "video": "https://res.cloudinary.com/dhmlh3ai/video/upload/v1794542022/bento_video.mp4", "poster": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/bento_img.webp", "label": "Ver promociones" }
+  ],
+  "locations": [
+    { "name": "Fábrica Los Olivos", "description": "Izquierda del mercado Villasol", "latitude": "-11.959483540827446", "longitude": "-77.07367553151661" },
+    { "name": "Tienda Independencia", "description": "Detrás de MegaPlaza", "latitude": "-11.991973180174918", "longitude": "-77.05845118953721" }
+  ],
+  "footer": {
+    "claimImage": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/libro-de-reclamaciones.jpg",
+    "payments": [
+      { "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/visa.webp", "alt": "Visa" },
+      { "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/mastercard.webp", "alt": "Mastercard" },
+      { "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/bcp.webp", "alt": "BCP" },
+      { "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/bbva.webp", "alt": "BBVA" },
+      { "image": "https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/yape.webp", "alt": "Yape" }
+    ]
+  }
+}

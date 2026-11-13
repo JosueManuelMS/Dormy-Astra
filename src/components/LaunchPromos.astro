@@ -1,0 +1,32 @@
+---
+import site from '../data/site.json';
+const legacyPromos = [
+  { href: '/producto/cama-black/', image: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794544808/destacado1.webp', alt: 'Oferta de lanzamiento: Cama Black' },
+  { href: '/categoria-producto/tarimas/', image: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794544813/destacado2.webp', alt: 'Oferta de lanzamiento: Tarimas' },
+  { href: '/categoria-producto/cabeceras/', image: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794544815/destacado3.webp', alt: 'Oferta de lanzamiento: Cabeceras' },
+];
+const promos = site.launch.items;
+---
+<section class="launch-promos" data-launch-promos aria-labelledby="launch-heading">
+  <header><h2 id="launch-heading">{site.launch.title} <span>{site.launch.subtitle}</span></h2></header>
+  <div class="launch-window"><div class="launch-track">{promos.map((promo) => <a class="launch-card" href={promo.href}><img src={promo.image} alt={promo.alt} loading="lazy" draggable="false" /></a>)}</div><button class="launch-arrow launch-prev" aria-label="Promoción anterior"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg></button><button class="launch-arrow launch-next" aria-label="Siguiente promoción"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></svg></button></div>
+</section>
+<script>
+  document.querySelectorAll('[data-launch-promos]').forEach((carousel) => {
+    const track = carousel.querySelector('.launch-track'), originals = [...track.children]; if (originals.length < 2) return;
+    originals.slice().reverse().forEach((card) => track.prepend(card.cloneNode(true))); originals.forEach((card) => track.append(card.cloneNode(true)));
+    let index = originals.length, startX = 0, previous = 0, touching = false, moved = false, transitioning = false;
+    const step = () => { const card = track.querySelector('.launch-card'); return card.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).gap) || 0); };
+    const render = (animate = true) => { previous = -index * step(); track.style.transition = animate ? 'transform .4s cubic-bezier(.25,1,.5,1)' : 'none'; track.style.transform = `translate3d(${previous}px,0,0)`; };
+    const move = (direction) => { if (transitioning) return; transitioning = true; index += direction; render(); };
+    render(false); track.addEventListener('transitionend', () => { transitioning = false; if (index >= originals.length * 2) { index = originals.length; render(false); } else if (index < originals.length) { index = originals.length * 2 - 1; render(false); } });
+    carousel.querySelector('.launch-prev').addEventListener('click', () => move(-1)); carousel.querySelector('.launch-next').addEventListener('click', () => move(1));
+    carousel.addEventListener('touchstart', (e) => { if (transitioning || e.touches.length !== 1) return; touching = true; moved = false; startX = e.touches[0].clientX; track.style.transition = 'none'; }, { passive:true });
+    carousel.addEventListener('touchmove', (e) => { if (!touching) return; const delta = e.touches[0].clientX - startX; moved ||= Math.abs(delta) > 8; track.style.transform = `translate3d(${previous + delta}px,0,0)`; }, { passive:true });
+    carousel.addEventListener('touchend', (e) => { if (!touching) return; touching = false; const delta = e.changedTouches[0].clientX - startX; if (delta < -40) move(1); else if (delta > 40) move(-1); else render(); });
+    track.addEventListener('click', (e) => { if (moved) { e.preventDefault(); moved = false; } }, true); let timer; addEventListener('resize', () => { clearTimeout(timer); timer = setTimeout(() => render(false), 80); });
+  });
+</script>
+<style>
+  .launch-promos{max-width:1600px;margin:0 auto;padding:8px clamp(24px,5.5vw,90px) 65px}.launch-promos header{margin:0 0 20px}.launch-promos h2{margin:0;color:#172844;font-size:clamp(24px,2.2vw,30px);letter-spacing:-.04em;text-transform:none}.launch-promos h2 span{font-weight:400}.launch-window{position:relative;overflow:hidden;padding:4px 0;touch-action:pan-y;user-select:none}.launch-track{display:flex;gap:20px;will-change:transform}.launch-card{display:block;flex:0 0 calc((100% - 40px)/2.5);overflow:hidden;border-radius:18px;background:#f2f2f2;box-shadow:0 2px 10px rgba(0,0,0,.05)}.launch-card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;pointer-events:none}.launch-arrow{position:absolute;top:50%;z-index:2;display:grid;width:42px;height:42px;padding:0;place-items:center;border:0;border-radius:50%;color:#111;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.22);transform:translateY(-50%);transition:.2s}.launch-arrow:hover{color:#fff;background:#172844;transform:translateY(-50%) scale(1.12)}.launch-arrow svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.launch-prev{left:10px}.launch-next{right:10px}@media(max-width:768px){.launch-promos{padding:18px 16px 45px}.launch-promos header{margin-bottom:16px}.launch-promos h2{font-size:25px;line-height:1.18}.launch-promos h2 span{display:block;margin-top:3px;font-size:.82em}.launch-track{gap:12px}.launch-card{flex-basis:calc((100% - 12px)/1.35);border-radius:14px}.launch-arrow{display:none}}
+</style>

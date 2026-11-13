@@ -1,0 +1,37 @@
+---
+import site from '../data/site.json';
+const legacySlides = [
+  { href: '#', desktop: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/banner1.webp', mobile: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/banner1_movil.webp', alt: 'Promoción DormyTop' },
+  { href: '#', desktop: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/banner2.webp', mobile: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/banner2_movil.webp', alt: 'Promoción DormyTop' },
+  { href: '/producto/cama-cuadros/', desktop: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/banner3.webp', mobile: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542023/banner3_movil.webp', alt: 'Cama Cuadros' },
+];
+const slides = site.hero;
+---
+<section class="hero-slider" aria-label="Productos destacados" data-hero-slider>
+  <div class="hero-track">
+    {slides.map((slide, index) => <a href={slide.href} class="hero-slide" aria-label={slide.alt}>
+      <picture><source media="(max-width: 768px)" srcset={slide.mobile} /><img src={slide.desktop} alt={slide.alt} draggable="false" loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} /></picture>
+    </a>)}
+  </div>
+  <button type="button" class="slider-arrow previous" aria-label="Slide anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg></button>
+  <button type="button" class="slider-arrow next" aria-label="Slide siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></button>
+</section>
+<script>
+  document.querySelectorAll('[data-hero-slider]').forEach((container) => {
+    const track = container.querySelector('.hero-track'), originals = [...track.children];
+    if (originals.length < 2) return;
+    track.prepend(originals.at(-1).cloneNode(true)); track.append(originals[0].cloneNode(true));
+    let index = 1, startX = 0, previous = 0, moved = false, touching = false, transitioning = false;
+    const width = () => container.getBoundingClientRect().width;
+    const render = (animate = true) => { previous = -index * width(); track.style.transition = animate ? 'transform .4s cubic-bezier(.25,1,.5,1)' : 'none'; track.style.transform = `translate3d(${previous}px,0,0)`; };
+    const move = (direction) => { if (transitioning) return; transitioning = true; index += direction; render(); };
+    render(false);
+    track.addEventListener('transitionend', () => { transitioning = false; if (index === 0) { index = originals.length; render(false); } else if (index === originals.length + 1) { index = 1; render(false); } });
+    container.querySelector('.previous').addEventListener('click', () => move(-1)); container.querySelector('.next').addEventListener('click', () => move(1));
+    container.addEventListener('touchstart', (event) => { if (event.touches.length !== 1 || transitioning) return; touching = true; moved = false; startX = event.touches[0].clientX; track.style.transition = 'none'; }, { passive: true });
+    container.addEventListener('touchmove', (event) => { if (!touching || event.touches.length !== 1) return; const delta = event.touches[0].clientX - startX; moved ||= Math.abs(delta) > 10; track.style.transform = `translate3d(${previous + delta}px,0,0)`; }, { passive: true });
+    const end = (event) => { if (!touching) return; touching = false; const delta = event.changedTouches[0].clientX - startX; if (delta < -50) move(1); else if (delta > 50) move(-1); else render(); };
+    container.addEventListener('touchend', end); container.addEventListener('touchcancel', end); track.addEventListener('click', (event) => { if (moved) { event.preventDefault(); moved = false; } }, true);
+    let resizeTimer; window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => render(false), 80); });
+  });
+</script>

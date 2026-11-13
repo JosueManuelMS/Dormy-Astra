@@ -1,0 +1,10 @@
+---
+import site from '../data/site.json';
+---
+<section class="locations" aria-labelledby="locations-heading">
+  <header><p>Visítanos</p><h2 id="locations-heading">Nuestras sedes</h2></header>
+  <div class="location-grid">{site.locations.map((location) => <article><iframe title={`Mapa: ${location.name}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" src={`https://www.google.com/maps?q=${location.latitude},${location.longitude}&z=17&output=embed`}></iframe><h3>{location.name}</h3><p>{location.description}</p><a href={`https://www.google.com/maps?q=${location.latitude},${location.longitude}`} target="_blank" rel="noreferrer">Cómo llegar →</a></article>)}</div>
+</section>
+<style>
+  .locations{max-width:1280px;margin:0 auto;padding:8px clamp(24px,4vw,40px) 82px}.locations header{margin-bottom:28px;padding-top:12px;border-top:2px solid #eef0f3}.locations header p{margin:15px 0 4px;color:#d9324a;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.locations h2{margin:0;color:#172844;font-size:40px;letter-spacing:-.045em}.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.location-grid article{overflow:hidden;border-radius:16px;background:#fff;box-shadow:0 7px 25px rgba(22,40,68,.09)}.location-grid iframe{display:block;width:100%;aspect-ratio:16/8;border:0;filter:saturate(.84)}.location-grid h3{margin:18px 20px 3px;color:#172844;font-size:19px}.location-grid p{margin:0 20px;color:#68788f;font-size:14px}.location-grid a{display:inline-block;margin:13px 20px 20px;color:#d9324a;font-size:14px;font-weight:700;text-decoration:none}@media(max-width:720px){.locations{padding:8px 16px 55px}.locations h2{font-size:32px}.location-grid{grid-template-columns:1fr;gap:18px}.location-grid iframe{aspect-ratio:16/9}}
+</style>

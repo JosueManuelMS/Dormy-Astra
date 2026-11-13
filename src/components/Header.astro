@@ -1,0 +1,47 @@
+---
+import MegaPanel from './MegaPanel.astro';
+import CartDrawer from './CartDrawer.astro';
+import site from '../data/site.json';
+const menu = [
+  { label: 'Inicio', href: '/', active: true },
+  { label: 'Camas', href: '/camas', image: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542365/camas_menu.webp', columns: [{ title: 'Medidas', links: ['1.5 plz', '2 plz', 'Queen', 'King'] }, { title: 'Colección', links: ['Capitonado', 'Bloque', 'Espejo', 'Kids', 'Nube'] }] },
+  { label: 'Tarimas', href: '/tarimas', image: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542365/tarima_menu.webp', columns: [{ title: 'Medidas', links: ['1.5 plz', '2 plz', 'Queen', 'King'] }, { title: 'Tipo', links: ['Clásica', 'Encajonada'] }] },
+  { label: 'Cabeceras', href: '/cabeceras', image: 'https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542365/cabecera_menu.webp', columns: [{ title: 'Medidas', links: ['1.5 plz', '2 plz', 'Queen', 'King'] }, { title: 'Colección', links: ['Capitonado', 'Bloque', 'Espejo'] }] },
+  { label: 'Arma Tu Dormitorio', href: '/arma-tu-dormitorio' },
+];
+---
+<header class="site-header" data-header>
+  <div class="brand-row"><a href="/" class="brand" aria-label={`${site.brand.name}, inicio`}><img src={site.brand.headerLogo} width="213" height="71" alt={site.brand.name} /></a></div>
+  <div class="nav-row">
+    <div class="nav-wrap">
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Abrir menú"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg></button>
+      <nav id="primary-navigation" class="navigation" aria-label="Navegación principal">
+        <div class="mobile-head"><img src="https://res.cloudinary.com/dhmlh3ai/image/upload/v1794544687/logo-header.webp" width="120" height="40" alt="DormyTop" /><button class="close-button" type="button" aria-label="Cerrar menú">×</button></div>
+        <ul class="menu">
+          {menu.map((item) => <li class:list={[{ active: item.active, hasPanel: item.columns }]}>
+            <a href={item.href}>{item.label}</a>
+            {item.columns && <><button class="submenu-button" type="button" aria-expanded="false" aria-label={`Abrir submenú ${item.label}`}>+</button><div class="mobile-panel"><MegaPanel item={item} /></div><div class="desktop-panel"><MegaPanel item={item} /></div></>}
+          </li>)}
+        </ul>
+      </nav>
+      <div class="actions">
+        <form class="search" role="search"><label class="sr-only" for="product-search">Buscar productos</label><input id="product-search" type="search" placeholder="Busque aquí" /><button aria-label="Buscar" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></button></form>
+        <a class="action" href="/mi-cuenta" aria-label="Mi cuenta"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 21c.7-4 3.1-6 7-6s6.3 2 7 6"/></svg></a>
+        <a class="action cart" href="/carrito/" data-cart-trigger aria-label="Carrito, 1 producto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.2h10.7l2-8H6.2"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg><span>1</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+<button class="backdrop" type="button" aria-label="Cerrar menú" hidden></button>
+<CartDrawer />
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const toggle = header?.querySelector('.menu-button');
+  const close = header?.querySelector('.close-button');
+  const backdrop = document.querySelector('.backdrop');
+  const setOpen = (open) => { header?.classList.toggle('menu-open', open); toggle?.setAttribute('aria-expanded', String(open)); if (backdrop) backdrop.hidden = !open; document.body.classList.toggle('menu-lock', open); };
+  toggle?.addEventListener('click', () => setOpen(!header?.classList.contains('menu-open')));
+  close?.addEventListener('click', () => setOpen(false)); backdrop?.addEventListener('click', () => setOpen(false));
+  document.querySelectorAll('.submenu-button').forEach((button) => button.addEventListener('click', () => { const item = button.closest('li'); const open = !item?.classList.contains('mobile-open'); document.querySelectorAll('.mobile-open').forEach((el) => el.classList.remove('mobile-open')); document.querySelectorAll('.submenu-button').forEach((el) => { el.textContent = '+'; el.setAttribute('aria-expanded', 'false'); }); item?.classList.toggle('mobile-open', open); button.textContent = open ? '−' : '+'; button.setAttribute('aria-expanded', String(open)); }));
+</script>

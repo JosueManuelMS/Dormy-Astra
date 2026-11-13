@@ -1,0 +1,15 @@
+---
+import site from '../data/site.json';
+const [cloud, minimal, featured] = site.bento;
+---
+<section class="bento" aria-label="Explora nuestras colecciones">
+  <a href={cloud.href} class="bento-card cloud"><img src={cloud.image} alt={cloud.alt} loading="lazy" /></a>
+  <a href={minimal.href} class="bento-card minimal"><img src={minimal.image} alt={minimal.alt} loading="lazy" /></a>
+  <a href={featured.href} class="bento-card featured"><video muted loop playsinline preload="metadata" poster={featured.poster} data-bento-video><source src={featured.video} type="video/mp4" /></video><span>{featured.label} <b>→</b></span></a>
+</section>
+<script>
+  document.querySelectorAll('[data-bento-video]').forEach((video) => { video.muted = true; const play = () => video.play().catch(() => {}); if (!('IntersectionObserver' in window)) return play(); const observer = new IntersectionObserver(([entry]) => entry.isIntersecting ? play() : video.pause(), { threshold:.15 }); observer.observe(video); });
+</script>
+<style>
+  .bento{display:grid;grid-template-columns:1fr 1.6fr;grid-template-rows:340px 340px;grid-template-areas:'cloud featured' 'minimal featured';gap:16px;max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 72px}.bento-card{position:relative;overflow:hidden;border-radius:18px;background:#f3f3f3;box-shadow:0 4px 15px rgba(0,0,0,.08)}.bento-card img,.bento-card video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}.bento-card:hover img,.bento-card:hover video{transform:scale(1.04)}.cloud{grid-area:cloud}.minimal{grid-area:minimal}.featured{grid-area:featured}.featured:after{position:absolute;inset:0;content:'';background:linear-gradient(0deg,rgba(0,0,0,.34),transparent 42%);pointer-events:none}.featured span{position:absolute;bottom:22px;left:24px;z-index:1;color:#fff;font-size:15px;font-weight:700}.featured b{margin-left:10px;font-size:20px}@media(max-width:768px){.bento{grid-template-columns:1fr 1fr;grid-template-rows:250px 145px;grid-template-areas:'featured featured' 'cloud minimal';gap:12px;padding:0 16px 52px;border-radius:14px}.bento-card{border-radius:14px}.featured span{bottom:15px;left:17px;font-size:13px}}
+</style>

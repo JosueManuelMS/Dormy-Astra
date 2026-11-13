@@ -1,0 +1,105 @@
+backend:
+  name: github
+  repo: JosueManuelMS/Dormy-Astra
+  branch: main
+  # Añade aquí base_url y auth_endpoint cuando configures tu OAuth de GitHub.
+
+local_backend: true
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: configuracion_visual
+    label: Configuración visual del sitio
+    files:
+      - name: sitio
+        label: Inicio, marca, sedes y pie
+        file: src/data/site.json
+        format: json
+        fields:
+          - label: Marca
+            name: brand
+            widget: object
+            fields:
+              - { label: Nombre, name: name, widget: string }
+              - { label: Logo del encabezado, name: headerLogo, widget: image }
+              - { label: Logo del pie, name: footerLogo, widget: image }
+          - label: Banners principales
+            name: hero
+            widget: list
+            fields:
+              - { label: Enlace, name: href, widget: string }
+              - { label: Imagen escritorio, name: desktop, widget: image }
+              - { label: Imagen móvil, name: mobile, widget: image }
+              - { label: Texto alternativo, name: alt, widget: string }
+          - label: Lanzamiento
+            name: launch
+            widget: object
+            fields:
+              - { label: Título, name: title, widget: string }
+              - { label: Subtítulo, name: subtitle, widget: string }
+              - label: Banners
+                name: items
+                widget: list
+                fields:
+                  - { label: Enlace, name: href, widget: string }
+                  - { label: Imagen, name: image, widget: image }
+                  - { label: Texto alternativo, name: alt, widget: string }
+          - label: Quiénes somos
+            name: about
+            widget: object
+            fields:
+              - { label: Antetítulo, name: eyebrow, widget: string }
+              - { label: Título, name: title, widget: string }
+              - { label: Texto, name: text, widget: text }
+              - { label: Enlace, name: link, widget: string }
+              - { label: Texto del enlace, name: linkLabel, widget: string }
+              - { label: Imagen, name: image, widget: image }
+              - { label: Beneficios, name: benefits, widget: list, field: { label: Beneficio, name: beneficio, widget: string } }
+          - label: Bento
+            name: bento
+            widget: list
+            fields:
+              - { label: Enlace, name: href, widget: string, required: false }
+              - { label: Imagen, name: image, widget: image, required: false }
+              - { label: Video, name: video, widget: file, required: false }
+              - { label: Poster, name: poster, widget: image, required: false }
+              - { label: Texto alternativo, name: alt, widget: string, required: false }
+              - { label: Etiqueta, name: label, widget: string, required: false }
+          - label: Sedes
+            name: locations
+            widget: list
+            fields:
+              - { label: Nombre, name: name, widget: string }
+              - { label: Descripción, name: description, widget: string }
+              - { label: Latitud, name: latitude, widget: string }
+              - { label: Longitud, name: longitude, widget: string }
+          - label: Pie de página
+            name: footer
+            widget: object
+            fields:
+              - { label: Imagen del libro de reclamaciones, name: claimImage, widget: image }
+              - label: Medios de pago
+                name: payments
+                widget: list
+                fields:
+                  - { label: Imagen, name: image, widget: image }
+                  - { label: Texto alternativo, name: alt, widget: string }
+  - name: productos
+    label: Productos
+    files:
+      - name: catalogo
+        label: Catálogo visual
+        file: src/data/products.json
+        format: json
+        fields:
+          - label: Productos
+            name: products
+            widget: list
+            fields:
+              - { label: Slug, name: slug, widget: string }
+              - { label: Nombre, name: name, widget: string }
+              - { label: Categoría, name: category, widget: string }
+              - { label: Precio, name: price, widget: string }
+              - { label: Imagen, name: image, widget: image }
+              - { label: Destacado, name: featured, widget: boolean, default: true }

@@ -1,0 +1,12 @@
+---
+const { item } = Astro.props;
+---
+<div class="panel-inner">
+  <div class="panel-copy">
+    <h2>{item.label}</h2>
+    <div class="panel-columns">
+      {item.columns.map((column) => <section><h3>{column.title}</h3><ul>{column.links.map((link) => <li><a href="#">{link}</a></li>)}</ul></section>)}
+    </div>
+  </div>
+  {item.image && <img src={item.image} alt="" loading="lazy" />}
+</div>

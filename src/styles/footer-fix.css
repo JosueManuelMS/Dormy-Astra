@@ -1,0 +1,23 @@
+/* Correcciones de distribución y acordeones del footer. */
+.site-footer .footer-links { display:flex !important; flex-direction:column !important; align-items:flex-start; gap:19px !important; }
+.site-footer .footer-links > a { display:block !important; line-height:1.42; }
+.site-footer .footer-social nav a svg { width:18px; height:18px; fill:currentColor; }
+@media (min-width:721px) { .site-footer details.footer-links[open] > a + a { margin-top:7px !important; } }
+@media (max-width:720px) {
+  .site-footer .footer-links { display:block !important; padding:21px 0; border-top:1px solid #dfe3e7; }
+  .site-footer .footer-links summary { cursor:pointer; }
+  .site-footer .footer-links > a { display:none !important; margin-top:13px; }
+  .site-footer .footer-links[open] > a { display:block !important; }
+  .site-footer .footer-links summary b { display:block !important; transition:transform .18s ease; }
+  .site-footer .footer-links[open] summary b { transform:rotate(45deg); }
+}
+@media (min-width:721px) {
+  .site-footer .footer-main { grid-template-columns:1.55fr .78fr 1.12fr .65fr; min-height:380px; column-gap:58px; }
+  .site-footer .newsletter { display:flex; flex-direction:column; align-items:flex-start; }
+  .site-footer .footer-logo { align-self:center; margin-bottom:70px; }
+  .site-footer .footer-links { padding-top:2px; }
+  .site-footer .footer-social { display:contents; }
+  .site-footer .footer-social nav { grid-column:4; grid-row:1; align-self:start; justify-self:end; margin-top:3px; }
+  .site-footer .footer-social .claims { display:none; }
+  .site-footer .footer-links + .footer-links::after { display:block; width:104px; height:66px; margin-top:12px; content:''; background:url('https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542026/libro-de-reclamaciones.jpg') center/contain no-repeat; }
+}

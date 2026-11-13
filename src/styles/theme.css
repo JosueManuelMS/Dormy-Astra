@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+:root { --brand:#d9324a; --brand-dark:#ae1930; --ink:#172844; --muted:#64748b; --surface:#f6f7f9; --font:'Plus Jakarta Sans',Arial,sans-serif; }
+body { font-family:var(--font); } a:focus-visible,button:focus-visible { outline:3px solid var(--brand); outline-offset:3px; }
+.about .about-brand { overflow:hidden; background:#ed0021 url('https://res.cloudinary.com/dhmlh3ai/image/upload/v1794542022/acerca-de.webp') center/cover no-repeat !important; }
+.about .about-brand img { display:none !important; }
+@media (max-width:900px) { .about { grid-template-columns:1fr 1fr !important; gap:16px !important; padding:45px 16px !important; }.about-copy { grid-column:1/-1; }.about-brand { min-width:0; min-height:170px; }.about-brand img { width:74% !important; max-width:220px; }.about ul { padding-top:2px; font-size:13px; }.bento { width:100% !important; grid-template-rows:260px 155px !important; padding:0 6px 52px !important; }.bento-card { border-radius:15px !important; } }
+@media (max-width:440px) { .about { grid-template-columns:1fr !important; }.about-brand { min-height:185px; }.about ul { font-size:14px; }.bento { grid-template-rows:235px 135px !important; } }

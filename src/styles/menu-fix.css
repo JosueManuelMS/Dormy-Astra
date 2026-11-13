@@ -1,0 +1,5 @@
+/* El panel lateral debe quedar por encima de la capa que oscurece la página. */
+@media (max-width: 900px) {
+  .site-header.menu-open { z-index: 30; }
+  .backdrop { z-index: 19; }
+}
